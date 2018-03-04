@@ -23,8 +23,11 @@ object Lists {
    * @param xs A list of natural numbers
    * @return The sum of all elements in `xs`
    */
-    def sum(xs: List[Int]): Int = ???
-  
+    def sum(xs: List[Int]): Int = {
+      if(xs.isEmpty) throw new NoSuchElementException
+        else if (xs.tail.isEmpty) xs.head
+        else xs.head + sum(xs.tail)
+    }
   /**
    * This method returns the largest element in a list of integers. If the
    * list `xs` is empty it throws a `java.util.NoSuchElementException`.
@@ -38,5 +41,35 @@ object Lists {
    * @return The largest element in `xs`
    * @throws java.util.NoSuchElementException if `xs` is an empty list
    */
-    def max(xs: List[Int]): Int = ???
+    def max(xs: List[Int]): Int = {
+      if(xs.isEmpty) throw new NoSuchElementException
+      else recMax(xs.tail, xs.head)
+    }
+
+    def recMax(xs:List[Int],larg:Int):Int = {
+      if(!xs.isEmpty) {
+        if (xs.head > larg) recMax(xs.tail, xs.head)
+        else recMax(xs.tail, larg)
+      }
+      else{larg}
+    }
+
+/*
+  def max(xs: List[Int]): Int = {
+    if(xs.isEmpty) {
+      throw new NoSuchElementException
+    } else if (xs.tail.isEmpty){
+      xs.head
+    }else{
+      getMax(xs.head,max(xs.tail))
+    }
+  }
+
+  def getMax(a:Int, b:Int): Int ={
+    if(a>b) a
+    else b
+  }
+*/
+
+
   }
